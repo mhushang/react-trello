@@ -8,6 +8,7 @@ export const DashboardView: React.FC<IStateProps> = ({
   columns,
   tasksList,
   handleAddNewColumn,
+  handleCardChange,
 }) => {
   return (
     <main className="dashboard">
@@ -18,6 +19,9 @@ export const DashboardView: React.FC<IStateProps> = ({
               id={column.id}
               key={column.id}
               title={column.title}
+              tasksList={tasksList[column.taskStatus]}
+              taskStatus={column.taskStatus}
+              onCardChange={handleCardChange}
             />
           ))}
           <div>

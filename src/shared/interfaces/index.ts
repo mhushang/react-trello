@@ -1,9 +1,9 @@
 import { ActionType } from "../constants";
 
 export interface ITask {
-  id: number;
+  id: string;
   title: string;
-  status: string;
+  taskStatus: string;
   order: number;
   description: string;
 }
@@ -12,9 +12,9 @@ export interface ITasks {
 }
 
 export interface IColumn {
-  id: number;
+  id: string;
   title: string;
-  status: string;
+  taskStatus: string;
 }
 
 export interface IInitialState {
