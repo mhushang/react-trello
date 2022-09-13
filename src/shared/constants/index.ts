@@ -1,3 +1,4 @@
 export enum ActionType {
   ADD_COLUMN = "ADD_COLUMN",
+  EDIT_COLUMN_TITLE = "EDIT_COLUMN_TITLE",
 }

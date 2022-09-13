@@ -1,4 +1,9 @@
 .dashboard .dashboard-body {
     display: flex;
+}
+
+.dashboard .dashboard-body .columns {
+    display: flex;
     justify-content: space-around;
+    width: 100%;
 }

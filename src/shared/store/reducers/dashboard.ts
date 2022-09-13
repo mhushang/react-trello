@@ -6,6 +6,12 @@ export const dashboardReducer = (state: IInitialState, action: IAction) => {
     case ActionType.ADD_COLUMN: {
       return {
         ...state,
+        columns: [...state.columns, ...action.columns],
+      };
+    }
+    case ActionType.EDIT_COLUMN_TITLE: {
+      return {
+        ...state,
         columns: [...action.columns],
       };
     }
