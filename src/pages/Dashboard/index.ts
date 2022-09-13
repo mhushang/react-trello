@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IModel, IStateProps } from "./model";
 import { DashboardView } from "./DashboardView";
 import { useAppState } from "../../shared/hooks";
@@ -59,10 +59,15 @@ export const Dashboard: React.FC<IModel> = (props) => {
         .map((item: any, i: any) => {
           return { ...item, order: i + 1 };
         });
-      setTasksList((d: any) => {
-        return { ...d, [oldStatus]: temp };
-      });
 
+        const tasksMoved = {
+          ...tasksList,
+          [oldStatus]: temp,
+        }
+        dispatch({
+          type: ActionType.DROP_CARD,
+          tasks: tasksMoved
+        });
       return;
     }
 
@@ -74,7 +79,7 @@ export const Dashboard: React.FC<IModel> = (props) => {
       });
 
     let tempRecievedList = [
-        ...(tasksList && tasksList[newStatus] || []),
+      ...((tasksList && tasksList[newStatus]) || []),
       {
         ...dropCard,
         order: targetCard ? targetCard.order - 1 : newListOrderValueMax + 1,
@@ -85,10 +90,19 @@ export const Dashboard: React.FC<IModel> = (props) => {
         return { ...item, order: i + 1 };
       });
 
-    setTasksList((d: any) => {
-      return { ...d, [oldStatus]: tempGaveList, [newStatus]: tempRecievedList };
-    });
+      const tasksMoved = {
+        ...tasksList,
+        [oldStatus]: tempGaveList, [newStatus]: tempRecievedList
+      }
+      dispatch({
+        type: ActionType.DROP_CARD,
+        tasks: tasksMoved
+      });
   };
+
+  useEffect(() => {
+    setTasksList(tasks);
+  }, [tasks]);
 
   const stateProps: IStateProps = {
     ...props,

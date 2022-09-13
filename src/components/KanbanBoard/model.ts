@@ -9,5 +9,6 @@ export interface IModel {
 }
 
 export interface IStateProps extends IModel {
-    handleChangeColumnTitle: (title: string) => void;
+    handleChangeColumn: (title: string) => void;
+    handleAddCard: (title: string, columnStatus: string) => void;
 }

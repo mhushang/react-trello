@@ -24,7 +24,9 @@ export interface IInitialState {
 
 export interface IAction {
   type: ActionType;
-  columns: Array<IColumn>;
+  columns?: Array<IColumn>;
+  tasks?: ITasks;
+  columnStatus?: string;
 }
 
 export interface IAppContext {

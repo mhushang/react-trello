@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import { ActionType } from "../../shared/constants";
+import { useAppState } from "../../shared/hooks";
 
 export const KanbanCard = ({ id, taskStatus, title, label }: any) => {
   const [onHold, setOnHold] = useState(false);
+  const [isEditTitle, setEditTitle] = useState(false);
+  const [cardTitle, setCardTitle] = useState(title);
+  const { state, dispatch } = useAppState();
 
   const dragStartHandler = (e: any) => {
     e.dataTransfer.setData("cardInfo", JSON.stringify({ id, taskStatus }));
@@ -40,6 +45,27 @@ export const KanbanCard = ({ id, taskStatus, title, label }: any) => {
     }
   };
 
+  const handleEditCard = () => {
+    let taskStaged = state.tasks[taskStatus].map((task) => {
+      if (task.id === id) {
+        task.title = cardTitle
+      } 
+      return task;
+    });
+
+    dispatch({
+      type: ActionType.EDIT_CARD,
+      tasks: {
+        ...state.tasks,
+        [taskStatus]: [
+          ...state.tasks[taskStatus],
+          ...taskStaged,
+        ]
+      }
+    })
+    setEditTitle(false);
+  };
+
   return (
     <div
       id={id}
@@ -51,13 +77,23 @@ export const KanbanCard = ({ id, taskStatus, title, label }: any) => {
       onDragLeave={onDragLeaveHandler}
       onDrop={onDropHandler}
     >
-      <div className="cardTitle">{title}</div>
-      <div className="cardFooter">
-        {label ? (
-          <div className={`label`}>{label}</div>
+      <div className="cardTitle">
+        {isEditTitle ? (
+          <div>
+            <textarea
+              value={cardTitle}
+              onChange={(e) => setCardTitle(e.target.value)}
+              placeholder="title"
+            />
+            <button onClick={handleEditCard}>V</button>
+            <button onClick={() => setEditTitle(false)}>X</button>
+          </div>
         ) : (
-          <div></div>
+          <div onClick={() => setEditTitle(true)}>{title}</div>
         )}
+      </div>
+      <div className="cardFooter">
+        {label ? <div className={`label`}>{label}</div> : <div></div>}
 
         <div className="collab">
           <a href="" className="collabPerson">
