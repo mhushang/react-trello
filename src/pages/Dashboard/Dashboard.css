@@ -1,0 +1,4 @@
+.dashboard .dashboard-body {
+    display: flex;
+    justify-content: space-around;
+}
