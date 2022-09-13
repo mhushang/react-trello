@@ -25,7 +25,7 @@ export const DashboardView: React.FC<IStateProps> = ({
             />
           ))}
           <div>
-            <button onClick={handleAddNewColumn}>+ Add nanother list</button>
+            <button className="action-btn" onClick={handleAddNewColumn}>+ Add nanother list</button>
           </div>
         </div>
       </div>

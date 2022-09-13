@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { IStateProps } from "./model";
+import { KanbanCard } from "../KanbanCard";
 
 import "./KanbanBoard.css";
-import { KanbanCard } from "../KanbanCard";
 
 export const KanbanBoardView: React.FC<IStateProps> = ({
   title,
   handleChangeColumn,
-  onCardChange,
   taskStatus,
   tasksList,
   handleAddCard,
+  onDragOver,
+  onDrop,
 }) => {
   const [isEditLabel, setEditLabel] = useState(false);
   const [columnTitle, setColumnTitle] = useState(title);
@@ -18,7 +19,7 @@ export const KanbanBoardView: React.FC<IStateProps> = ({
   const [isAddCard, setAddCard] = useState(false);
   const [cardTitle, setCardTitle] = useState("");
 
-  let sorted = tasksList && tasksList.sort((a, b) => a.order - b.order);
+  let tasksSorted = tasksList && tasksList.sort((a, b) => a.order - b.order);
 
   const handleEditColumn = () => {
     handleChangeColumn(columnTitle);
@@ -31,72 +32,22 @@ export const KanbanBoardView: React.FC<IStateProps> = ({
     setCardTitle("");
   };
 
-  const onDragEnterHandler = (e: any) => {
-    e.preventDefault();
-  };
-
-  const onDragOverHandler = (e: any) => {
-    e.preventDefault();
-    if (e.target.className === "boardContentArea") {
-      setTimeout(() => {
-        e.target.className = "boardContentArea hovered";
-      }, 0);
-    }
-  };
-
-  const onDragLeaveHandler = (e: any) => {
-    e.preventDefault();
-    if (e.target.className === "boardContentArea hovered") {
-      setTimeout(() => {
-        e.target.className = "boardContentArea";
-      }, 0);
-    }
-  };
-
-  const onDropHandler = (e: any) => {
-    let cardInfo = JSON.parse(e.dataTransfer.getData("cardInfo"));
-    let targetCardId = e.target.id;
-    onCardChange(cardInfo, taskStatus, targetCardId);
-    if (e.target.className === "boardContentArea hovered") {
-      setTimeout(() => {
-        e.target.className = "boardContentArea";
-      }, 0);
-    }
-  };
-
   const cancelAddNewCard = () => {
     setAddCard(false);
     setCardTitle("");
-  }
-
-  const renderCards = () => {
-    return (
-      sorted &&
-      sorted.map((item) => (
-        <KanbanCard
-          key={`taskStatus-${item.id}`}
-          id={item.id}
-          taskStatus={taskStatus}
-          title={item.title}
-          label={item.description}
-        />
-      ))
-    );
   };
 
   return (
     <main className="kanban-board">
       <div className="kanban-board-body">
         <div
-          className="boardContentArea"
-          onDragEnter={onDragEnterHandler}
-          onDragOver={onDragOverHandler}
-          onDragLeave={onDragLeaveHandler}
-          onDrop={onDropHandler}
+          className="drag-and-drop-zone"
+          onDragOver={onDragOver}
+          onDrop={onDrop}
         >
           <div className="kanban-board-item">
             {isEditLabel ? (
-              <div>
+              <div className="cards-titlearea-field">
                 <input
                   value={columnTitle}
                   onChange={(e) => setColumnTitle(e.target.value)}
@@ -106,13 +57,25 @@ export const KanbanBoardView: React.FC<IStateProps> = ({
                 <button onClick={() => setEditLabel(false)}>X</button>
               </div>
             ) : (
-              <div onClick={() => setEditLabel(true)}>{title}</div>
+              <div className="column-title" onClick={() => setEditLabel(true)}>
+                {title}
+              </div>
             )}
           </div>
 
-          <div className="cards-list">{renderCards()}</div>
+          <div className="cards-list">
+            {tasksSorted &&
+              tasksSorted.map((task) => (
+                <KanbanCard
+                  key={`taskStatus-${task.id}`}
+                  id={task.id}
+                  taskStatus={taskStatus}
+                  title={task.title}
+                />
+              ))}
+          </div>
           {isAddCard ? (
-            <div>
+            <div className="cards-textarea-field">
               <textarea
                 value={cardTitle}
                 onChange={(e) => setCardTitle(e.target.value)}
@@ -121,7 +84,7 @@ export const KanbanBoardView: React.FC<IStateProps> = ({
               <button onClick={cancelAddNewCard}>X</button>
             </div>
           ) : (
-            <div className="cards-list" onClick={() => setAddCard(true)}>
+            <div className="cards-action-btn" onClick={() => setAddCard(true)}>
               + Add a card
             </div>
           )}

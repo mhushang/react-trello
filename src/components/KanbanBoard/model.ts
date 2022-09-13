@@ -11,4 +11,6 @@ export interface IModel {
 export interface IStateProps extends IModel {
     handleChangeColumn: (title: string) => void;
     handleAddCard: (title: string, columnStatus: string) => void;
+    onDragOver: (e: any) => void;
+    onDrop: (e: any) => void;
 }

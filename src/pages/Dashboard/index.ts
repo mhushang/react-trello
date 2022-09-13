@@ -30,22 +30,22 @@ export const Dashboard: React.FC<IModel> = (props) => {
   ) => {
     const { id, taskStatus: oldStatus } = cardInfo;
 
-    let dropCard = tasksList[oldStatus].find((el: any) => el.id === id);
+    let dropCard = tasksList[oldStatus].find((task) => task.id === id);
     let targetCard =
       targetCardId !== ""
-        ? tasksList[newStatus].find((el: any) => el.id === targetCardId)
+        ? tasksList[newStatus].find((task) => task.id === targetCardId)
         : null;
 
     let newListOrderValueMax =
       tasksList &&
       tasksList[newStatus] &&
       tasksList[newStatus]
-        .map((item: any) => item.order)
-        .reduce((maxValue: any, a: any) => Math.max(maxValue, a), 0);
+        .map((item) => item.order)
+        .reduce((maxValue, acc) => Math.max(maxValue, acc), 0);
 
     if (oldStatus === newStatus) {
       let temp = tasksList[oldStatus]
-        .map((item: any) => {
+        .map((item) => {
           if (item.id === dropCard!.id)
             return {
               ...dropCard,
@@ -55,8 +55,8 @@ export const Dashboard: React.FC<IModel> = (props) => {
             };
           return item;
         })
-        .sort((a: any, b: any) => a.order - b.order)
-        .map((item: any, i: any) => {
+        .sort((a, b) => a.order - b.order)
+        .map((item: any, i) => {
           return { ...item, order: i + 1 };
         });
 
@@ -72,9 +72,9 @@ export const Dashboard: React.FC<IModel> = (props) => {
     }
 
     let tempGaveList = tasksList[oldStatus]
-      .filter((item: any) => item.id !== id)
-      .sort((a: any, b: any) => a.order - b.order)
-      .map((item: any, i: any) => {
+      .filter((item) => item.id !== id)
+      .sort((a, b) => a.order - b.order)
+      .map((item: any, i) => {
         return { ...item, order: i + 1 };
       });
 

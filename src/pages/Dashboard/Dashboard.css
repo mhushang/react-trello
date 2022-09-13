@@ -1,9 +1,22 @@
+.dashboard {
+    padding: 50px 25px;
+}
+
 .dashboard .dashboard-body {
     display: flex;
 }
 
 .dashboard .dashboard-body .columns {
     display: flex;
-    justify-content: space-around;
     width: 100%;
+}
+
+.action-btn {
+    background-color: #ffffff3d;
+    cursor: pointer;
+    padding: 6px 8px;
+    transition: color 85ms ease-in;
+    font-size: 16px;
+    line-height: 20px;
+    min-width: 156px;
 }
