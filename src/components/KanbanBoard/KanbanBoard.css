@@ -1,0 +1,57 @@
+.kanban-board {
+  min-width: 272px;
+  background-color: #ebecf0;
+  border-radius: 3px;
+  margin: 0 4px;
+}
+
+.column-title {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 5px 15px;
+  transition: 0.1s;
+}
+
+.column-title:hover {
+  background-color: #b1b3b8;
+  border-radius: 3px;
+  cursor: text;
+}
+
+.cards-action-btn {
+  font-size: 14px;
+  line-height: 24px;
+  transition: 0.1s;
+  padding: 5px 15px;
+}
+
+.cards-action-btn:hover {
+  background-color: #b1b3b8;
+  cursor: pointer;
+}
+
+.cards-textarea-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cards-textarea-field button,
+.cards-titlearea-field button {
+  width: 100%;
+  margin-left: 6px;
+}
+
+.cards-titlearea-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cards-textarea-field textarea {
+  min-width: 141px;
+}
+
+.drag-and-drop-zone.hovered {
+}

@@ -1,3 +1,7 @@
 export enum ActionType {
   ADD_COLUMN = "ADD_COLUMN",
+  EDIT_COLUMN = "EDIT_COLUMN",
+  ADD_CARD = "ADD_CARD",
+  EDIT_CARD = "EDIT_CARD",
+  DROP_CARD = "DROP_CARD"
 }

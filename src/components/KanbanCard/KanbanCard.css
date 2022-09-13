@@ -1,0 +1,25 @@
+.card {
+  background-color: #fff;
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 3px;
+  font-size: 14px;
+  box-shadow: 1px 1px 1px 1px #dcdcdc;
+  cursor: grab;
+}
+
+.card-title {
+  margin-bottom: 20px;
+}
+
+.cards-textarea-field button {
+    width: 100%;
+    margin-left: 6px;
+}
+
+.cards-textarea-field textarea {
+    min-width: 141px
+}
+
+.card.hovered {
+}

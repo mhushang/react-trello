@@ -1,25 +1,32 @@
 import { ActionType } from "../constants";
 
 export interface ITask {
-  id: number;
+  id: string;
   title: string;
+  taskStatus: string;
+  order: number;
   description: string;
-  status: string;
+}
+export interface ITasks {
+  [k: string]: Array<ITask>;
 }
 
 export interface IColumn {
-  id: number;
-  tasks: Array<ITask>;
-  label: string;
+  id: string;
+  title: string;
+  taskStatus: string;
 }
 
 export interface IInitialState {
   columns: Array<IColumn>;
+  tasks: ITasks;
 }
 
 export interface IAction {
   type: ActionType;
-  columns: Array<IColumn>;
+  columns?: Array<IColumn>;
+  tasks?: ITasks;
+  columnStatus?: string;
 }
 
 export interface IAppContext {
