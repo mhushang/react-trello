@@ -6,13 +6,15 @@ yarn create react-app _app_name --template typescript
 ```
 WOW :)
 
-Here I have tried to implement MVC pattern for the components, in order to write tests only for logic (controller), without mixing the view. Also I have tried to typeб best as I couldб all the application state (useContext, useReducer).
+Here I have tried to implement MVC pattern for the components, in order to write tests only for logic (controller), without mixing the view. Also I have tried to type, best as I could, all the application state (useContext, useReducer).
 
-In this video you can see how the app works: https://www.loom.com/share/1853fd61ddcd453cbbda43f07b331f74
+In this video you can see how the app works: 
 
-So how to start the project:
+https://www.loom.com/share/1853fd61ddcd453cbbda43f07b331f74
 
-- You can type 
+So, how to start the project:
+
+You can type 
 ```
 docker-compose up
 ```
@@ -21,6 +23,18 @@ or just run
 ```
 yarn start
 ```
+
+Definitely we should add next features and refactorings to release app in production:
+
+- Configure environment for testing, staging and production;
+- Implement Authorization;
+- Implement all necessary pages, like settings, profile;
+- Need to use some css framework (tailwind css more preferable);
+- Need to use css preprocessor (scss/sass preferable);
+- Work on optimization (in several places we need to memoize components);
+- Cover with tests;
+- Need to refactor types;
+- Use prettier and pre-commit to format code before pushing it;
 
 
 Thanks. Cheers.
